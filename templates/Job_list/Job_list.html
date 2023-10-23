@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{% static 'css/Job_list/style.css' %}">
+    <script src="jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>Khedmati</title>
+</head>
+
+
+<body>
+  {% block content %}
+
+<div class="khedmati">
+  {% include 'Header_Footer/header.html' %}
+</div>
+
+
+<div class="Job_list_wallpaper">
+  <img src="{%static 'img/Job_list/Job_list_wallpaper.jpg'%}" alt="">
+  <h1>Jobs List</h1>
+  <div class="Job_list_wallpaper_color"></div>
+</div>
+
+<script>
+  var message = "{% for message in messages %} {{ message }} {% endfor %}";
+  if ( message !== ""){
+  alert(" {% for message in messages %} {{ message }} {% endfor %}" )
+  }
+</script>
+
+<div class="container">
+  <div class="Side_search">
+    <form method="get" action="{% url 'list_job_search' %}">
+      <label for="">Keywords</label>
+      <input type="text" name="keyword" placeholder="Keywords" value="{{ request.GET.keyword }}">
+      <label for="">Region</label>
+      <select name="region">
+        <option value="">Select Region</option>
+        {% for region in regions %}
+        <option value="{{ region.city }}" {% if request.GET.region == region.city %}selected{% endif %}>{{ region.city }}</option>
+        {% endfor %}
+      </select>
+      <label for="">Category</label>
+      <select name="category">
+        <option value="">Select Category</option>
+        {% for category in categories %}
+        <option value="{{ category.name }}" {% if request.GET.category == category.name %}selected{% endif %}>{{ category.name }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Search Jobs</button>
+    </form>
+  </div>
+  
+  <div class="main-content">
+    {% if jobs %}
+      {% for Job in jobs %}
+      <section>
+        <div class="company_logo">
+          <!--<img src="{%static 'img/Home/icon_5.png'%}" alt="">-->
+          <img src="{{Job.idEmployer.image}}" alt="">
+        </div>
+        <div class="job_text">
+        <h2>{{ Job.job_title }}</h2>
+        <h5><i class="fa-solid fa-suitcase"></i> {{ Job.idEmployer.company_name }}</h4>
+        <p><i class="fa-solid fa-location-dot"></i> {{ Job.idRegion.city }}, {{ Job.idRegion.country }}</p>
+        <p> {{ Job.idEmployer.address }} </p>
+        <h6><i class="fa-sharp fa-solid fa-coins"></i> {{ Job.salary_range }} <span> DA / Month</span> </h6>
+        <a href="{% url 'job_detailed' Job.idJob %}">
+          <button class="browse-btn">Browse Job</button>
+        </a>
+      </div>
+      </section>
+      {% endfor %}
+    {% else %}
+        <p>No jobs found for "{{ search_term }}".</p>  
+    {% endif %}
+  </div>
+</div>
+
+<div id="footer">
+  {% include 'Header_Footer/footer.html' %}
+</div>
+
+</body>
+{% endblock %}
+<script src="{% static 'js/Job_list/custom.js' %}"></script>
+
+
+</html>

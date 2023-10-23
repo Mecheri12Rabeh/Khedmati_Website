@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{% static 'css/Header_Footer/style.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    {%block content%}
+    <header class="Khedmati">
+        <a href="{%url 'home'%}">
+        <img src="{%static 'img/Header_Footer/new_logo_header.png'%}" height="60px" width="200px" class="Logo">
+        </a>
+        <nav>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="{%url 'home'%}">Home</a></li>
+                    <li><a href="{%url 'jobs_list'%}">Jobs</a></li>
+                    <li><a href="{%url 'news_page'%}">News</a></li>
+                    <li><a href="{%url 'about_us'%}">About Us</a></li>
+                    <li><a href="{%url 'contact_us'%}">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        <img src="/Images/hamburger-menu.png" class="hamburger-menu">
+        <div class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="overlay">
+            <div class="search-container">
+                <div>
+                    <form method="get" action="{% url 'list_job_search' %}">
+                    <input type="text" class="search-input" name="keyword" value="{{ request.GET.keyword }}" placeholder="Type here to search...">
+                    </form>
+                    <span class="input-search-icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
+                </div>
+                <div class="close-icon">&times;</div>
+            </div>
+        </div>
+
+    {% if 'user_id' in request.session %}
+    {% if user_type == 'employer' %}
+    <!-- Display employer user menu -->
+            <div class="user-menu">
+                <div class="profile" onclick="menuToggle();">
+                    <img src="{{ employer.image }}">
+                </div>
+
+                <div class="user-menu-droplist">
+                    <h3>{{ employer.company_name }}</h3>
+                    <hr>
+                    <ul>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'employer_dashboard' %}">Dashboard</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'manage_profile_employer' %}">Profile</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'contact_us' %}">Contact us</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% elif user_type == 'candidate' %}
+            <!-- Display employer user menu -->
+            <div class="user-menu">
+                <div class="profile" onclick="menuToggle();">
+                    <img src="{{ candidate.image }}">
+                </div>
+
+                <div class="user-menu-droplist">
+                    <h3>{{ candidate.first_name }} {{ candidate.last_name }}</h3>
+                    <hr>
+                    <ul>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'candidate_dashboard' %}">Dashboard</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'manage_profile_candidate' %}">Profile</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'contact_us' %}">Contact us</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size"></span>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            {% else %}
+            <a href="{%url 'Sign_up_in'%}">
+                <button class="btn-Sign-in-header"><i class="fa-solid fa-right-to-bracket"></i>Sign up</button>
+            </a>
+            {%endif%}  
+    {% else %}
+        <a href="{%url 'Sign_up_in'%}">
+            <button class="btn-Sign-in-header"><i class="fa-solid fa-right-to-bracket"></i>Sign up</button>
+        </a>
+    {%endif%}  
+                
+
+    </header>
+    {%endblock%}
+</body>
+<script src="{% static 'js/Header_Footer/custom.js' %}"></script>
+
+</html>

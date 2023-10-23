@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{%static 'css/Dashboard_Candidate/Add_resume/style.css'%}">
+    <script src="jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+
+    <title>Khedmati</title>
+</head>
+
+
+<body>
+    {%block content%}
+    <div class="nav_bar">{%include 'Dashboard_Candidate/nav_bar/nav_bar.html'%}</div>
+
+    <div class="main">
+        <div class="top_bar">{%include 'Dashboard_Candidate/nav_bar/top_bar.html'%}</div>
+        <div class="nav-title">
+            <h2> Add Resume </h2>
+            <div class="nav-title-link"><a href="{%url 'home'%}">Home</a><span> Add Resume </span></div>
+        </div>
+        <div class="user-pic">
+            <div class="user-pic-title">
+                <ion-icon name="person"></ion-icon>
+                <h3>Update resume Image</h3>
+            </div>
+            <hr>
+            <div class="pic">
+                <div class="add-pic">
+                    <img src="" alt="">
+                </div>
+                <div class="upload-pic">
+                    <input id="file-upload" type="file" value="" accept=".png, .jpg, .jpeg">
+                    <button id="file-upload-button">Upload Image</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-main">
+            <div class="nav-main-title1">
+                <ion-icon name="document"></ion-icon>
+                <h3> Cv Information</h3>
+            </div>
+            <hr class="nav-main-title1-hr">
+            <div class="cv-form">
+
+                <div class="form-profile">
+                    <div class="nav-main-title">
+                        <ion-icon name="id-card"></ion-icon>
+                        <h3> Profile</h3>
+                    </div>
+                    <hr>
+                    <div class="form-box">
+
+                        <label for=""><ion-icon name="person"></ion-icon>First name</label>
+                        <input type="text" class="first-name" placeholder="Enter Your First name">
+                        <label for=""><ion-icon name="people"></ion-icon>Last name</label>
+                        <input type="text" class="last-name" placeholder="Enter Your Last name">
+                        <label for=""><ion-icon name="briefcase"></ion-icon>Job Domaine</label>
+                        <input type="text" class="last-name" placeholder="Enter Your Job Domaine">
+
+                    </div>
+                </div>
+                <div class="form-info">
+                    <div class="nav-main-title">
+                        <ion-icon name="key"></ion-icon>
+                        <h3> Personal Informations</h3>
+                    </div>
+                    <hr>
+                    <div class="form-box">
+                        <label for=""><ion-icon name="location"></ion-icon> Address</label>
+                        <input type="text" class="user-address" placeholder="Enter Your Address">
+                        <label for=""><ion-icon name="call"></ion-icon> Number</label>
+                        <input type="number" class="user-number" placeholder="Enter Your Phone Number">
+                        <label for=""><ion-icon name="mail"></ion-icon> Email</label>
+                        <input type="email" class="user-email" placeholder="Enter Your Email">
+                    </div>
+                </div>
+                <div class="form-social-media">
+                    <div class="nav-main-title">
+                        <ion-icon name="share-social"></ion-icon>
+                        <h3> Social Accounts</h3>
+                    </div>
+                    <hr>
+                    <div class="form-box">
+                        <label for=""><ion-icon name="logo-facebook"></ion-icon> Facebook</label>
+                        <input type="text" class="user-facebook" placeholder="Enter Your Facebook Account">
+                        <label for=""><ion-icon name="logo-twitter"></ion-icon> Twitter</label>
+                        <input type="text" class="user-twitter" placeholder="Enter Your Twitter Account">
+                        <label for=""><ion-icon name="logo-linkedin"></ion-icon> Linkedin</label>
+                        <input type="text" class="user-linkdin" placeholder="Enter Your Linkedin Account">
+                    </div>
+                </div>
+                <div class="form-about-user">
+                    <div class="nav-main-title">
+                        <ion-icon name="chatbox-ellipses"></ion-icon>
+                        <h3> About You</h3>
+                    </div>
+                    <hr>
+                    <div class="form-box">
+                        <label for=""><ion-icon name="chatbox-ellipses"></ion-icon> About You</label>
+                        <textarea placeholder="Describe Your Self" class="about-user" name="" id="" cols="30"
+                            rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="form-work-experience">
+                    <div class="nav-main-title">
+                        <ion-icon name="briefcase"></ion-icon>
+                        <h3> Work Experience</h3>
+                    </div>
+                    <hr>
+
+                    <div class="form-work-experience-left">
+                        <div class="form-box">
+                            <label for=""><ion-icon name="calendar"></ion-icon> 1- Job Periode</label>
+                            <input type="number" class="job-periode1" name="year-input" min="1900" max="2099"
+                                placeholder="YYYY">
+                            <label for=""><ion-icon name="calendar"></ion-icon> To</label>
+                            <input type="number" class="job-periode2" name="year-input" min="1900" max="2099"
+                                placeholder="YYYY">
+                            <label for=""><ion-icon name="location"></ion-icon> 1- Job Place</label>
+                            <input type="text" class="job-place" placeholder="Enter Your Job Place">
+                        </div>
+                        <div class="form-box">
+                            <label for=""><ion-icon name="briefcase"></ion-icon> 1- Job Name</label>
+                            <input type="text" class="job-name" placeholder="Enter Your Job Name">
+                            <label for=""> <ion-icon name="business"></ion-icon>1- Job Company</label>
+                            <input type="text" class="job-company" placeholder="Enter The Job Company">
+                            <label for=""> <ion-icon name="flash"></ion-icon>1- Job Skills</label>
+                            <textarea class="job-skills" name="" id="" cols="30" rows="3"
+                                placeholder="Enter The Job Skills"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-work-experience-right">
+                        <div class="form-box">
+                            <label for=""><ion-icon name="calendar"></ion-icon> 2- Job Periode</label>
+                            <input type="number" class="job-periode3" name="year-input" min="1900" max="2099"
+                                placeholder="YYYY">
+                            <label for=""><ion-icon name="calendar"></ion-icon> To</label>
+                            <input type="number" class="job-periode4" name="year-input" min="1900" max="2099"
+                                placeholder="YYYY">
+                            <label for=""><ion-icon name="location"></ion-icon> 2- Job Place</label>
+                            <input type="text" class="job-place2" placeholder="Enter Your Job Place">
+                        </div>
+                        <div class="form-box">
+                            <label for=""><ion-icon name="briefcase"></ion-icon> 2- Job Name</label>
+                            <input type="text" class="job-name2" placeholder="Enter Your Job Name">
+                            <label for=""> <ion-icon name="business"></ion-icon>2- Job Company</label>
+                            <input type="text" class="job-company2" placeholder="Enter The Job Company">
+                            <label for=""> <ion-icon name="flash"></ion-icon>2- Job Skills</label>
+                            <textarea class="job-skills2" name="" id="" cols="30" rows="3"
+                                placeholder="Enter The Job Skills"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-education">
+                    <div class="nav-main-title">
+                        <ion-icon name="school"></ion-icon>
+                        <h3> Education</h3>
+                    </div>
+                    <hr>
+
+                    <div class="form-education-left">
+                        <div class="form-box">
+                            <label for=""><ion-icon name="calendar"></ion-icon> 1- Education Periode</label>
+                            <input type="number" class="education-date1" name="year-input" min="1900" max="2099"
+                                placeholder="YYYY">
+                            <label for=""><ion-icon name="calendar"></ion-icon> To</label>
+                            <input type="number" class="education-date2" name="year-input" min="1900" max="2099"
+                                placeholder="YYYY">
+                            <label for=""><ion-icon name="location"></ion-icon> 1- Education Place</label>
+                            <input type="text" class="education-place" placeholder="Enter Your Education Place">
+                        </div>
+                        <div class="form-box">
+                            <label for=""><ion-icon name="school"></ion-icon> 1- Education Domaine</label>
+                            <input type="text" class="education-name" placeholder="Enter Your Education Domaine">
+                            <label for=""><ion-icon name="chatbox-ellipses"></ion-icon> 1- About Education</label>
+                            <textarea class="about-education" name="" id="" cols="30" rows="3"
+                                placeholder="Describe Your Education"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-education-right">
+                        <div class="form-box">
+                            <label for=""><ion-icon name="calendar"></ion-icon> 2- Education Periode</label>
+                            <input type="number" class="education-date3" name="year-input" min="1900" max="2099"
+                                placeholder="YYYY">
+                            <label for=""><ion-icon name="calendar"></ion-icon> To</label>
+                            <input type="number" class="education-date4" name="year-input" min="1900" max="2099"
+                                placeholder="YYYY">
+                            <label for=""><ion-icon name="location"></ion-icon> 2- Education Place</label>
+                            <input type="text" class="education-place2" placeholder="Enter Your Education Place">
+                        </div>
+                        <div class="form-box">
+                            <label for=""><ion-icon name="school"></ion-icon> 2- Education Domaine</label>
+                            <input type="text" class="education-name2" placeholder="Enter Your Education Domaine">
+                            <label for=""><ion-icon name="chatbox-ellipses"></ion-icon> 2- About Education</label>
+                            <textarea class="about-education" name="" id="" cols="30" rows="3"
+                                placeholder="Describe Your Education"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-Skills">
+                    <div class="nav-main-title">
+                        <ion-icon name="flash"></ion-icon>
+                        <h3>Skill and expertize</h3>
+                    </div>
+                    <hr>
+                    <div class="form-Skills-left">
+                        <div class="form-box">
+                            <label for=""><ion-icon name="flash"></ion-icon> 1- Skills Name</label>
+                            <input class="skills-name" type="text">
+                            <label for=""><ion-icon name="git-commit"></ion-icon>1- Skills Progress</label>
+                            <input class="progress" type="number" min="0" max="100">
+                        </div>
+                        <div class="form-box">
+                            <label for=""><ion-icon name="flash"></ion-icon> 2- Skills Name</label>
+                            <input class="skills-name1" type="text">
+                            <label for=""><ion-icon name="git-commit"></ion-icon> 2- Skills Progress</label>
+                            <input class="progress1" type="number" min="0" max="100">
+                        </div>
+                    </div>
+
+                    <div class="form-Skills-right">
+                        <div class="form-box">
+                            <label for=""><ion-icon name="flash"></ion-icon> 3- Skills Name</label>
+                            <input class="skills-name2" type="text">
+                            <label for=""><ion-icon name="git-commit"></ion-icon> 3- Skills Progress</label>
+                            <input class="progress2" type="number" min="0" max="100">
+                        </div>
+                        <div class="form-box">
+                            <label for=""><ion-icon name="flash"></ion-icon> 4- Skills Name</label>
+                            <input class="skills-name3" type="text">
+                            <label for=""><ion-icon name="git-commit"></ion-icon> 4- Skills Progress</label>
+                            <input class="progress3" type="number" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+                <button id="preview-button">Preview</button>
+
+                <div class="preview-section">
+                </div>
+
+                <button id="download-cv">Download CV</button>
+
+            </div>
+        </div>
+
+
+
+        <!--=======================================-->
+        <!--========  CV Design ================-->
+        <!--=======================================-->
+
+        <div class="resume-box">
+
+            <div class="left-section">
+                <div class="profile">
+                    <img src="image/profile.png" class="profile-img">
+                    <div class="blue-box"></div>
+                </div>
+                <h2 class="name">
+                    <br>
+                    <span>
+                        <input type="text" class="first-name">
+                        <input type="text" class="last-name">
+                    </span>
+                </h2>
+                <p class="n-p"><input type="text" class="user-job"></p>
+
+
+                <div class="info">
+                    <p class="heading">Info</p>
+                    <p class="p1"><span class="span1"><img src="{%static 'img/Dashboard_Candidate/Add_resume/location.png'%}"></span>Address<span> <br><input
+                                type="text" class="user-address"></span></p>
+                    <p class="p1"><span class="span1"><img src="{%static 'img/Dashboard_Candidate/Add_resume/call.png'%}"></span>Phone<span> <br><input
+                                type="number" class="user-number"></span></p>
+                    <p class="p1"><span class="span1"><img src="{%static 'img/Dashboard_Candidate/Add_resume/mail.png'%}"></span>Email<span> <br><input
+                                type="email" class="user-email"></span></p>
+                </div>
+
+                <div class="info">
+                    <p class="heading">Social</p>
+                    <p class="p1"><span class="span1"><img src="image/facebook.png"></span>Facebook<span> <br><input
+                                type="text" class="user-facebook"></span></p>
+                    <p class="p1"><span class="span1"><img src="image/twitter.png"></span>Twitter<span> <br><input
+                                type="text" class="user-twitter"></span></p>
+                    <p class="p1"><span class="span1"><img src="image/linkedin.png"></span>Linkdin<span> <br><input
+                                type="text" class="user-linkdin"></span></p>
+                </div>
+
+            </div>
+
+            <div class="right-section">
+                <div class="right-heading">
+                    <img src="image/user.png">
+                    <p class="p2">Profile</p>
+                </div>
+                <p class="p3"><textarea class="about-user" name="" id="" cols="30" rows="10"></textarea></p>
+
+                <div class="clearfix"></div>
+                <br><br>
+                <div class="right-heading">
+                    <img src="image/pencil.png">
+                    <p class="p2">Work Experience</p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="lr-box">
+                    <div class="left">
+                        <p class="p4"><input type="date" class="job-periode"></p>
+                        <p class="p5"><input type="text" class="job-place"></p>
+                    </div>
+
+                    <div class="right">
+                        <p class="p4"><input type="text" class="job-name"></p>
+                        <p class="p5"><input type="text" class="job-company"></p>
+                        <p class="p5"><textarea class="job-skills" name="" id="" cols="30" rows="3"></textarea></p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <br>
+                <div class="right-heading">
+                    <img src="image/edu.png">
+                    <p class="p2">Education</p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="lr-box">
+                    <div class="left">
+                        <p class="p4"><input type="date" class="education-date"></p>
+                        <p class="p5"><input type="text" class="education-place"></p>
+                    </div>
+
+                    <div class="right">
+                        <p class="p4"><input type="text" class="education-name"></p>
+                        <p class="p5"><textarea class="about-education" name="" id="" cols="30" rows="3"></textarea></p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <br>
+                <div class="right-heading">
+                    <img src="image/edu.png">
+                    <p class="p2">Skill and expertize</p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="s-box">
+                    <p class="p6"><input class="skills-name" type="text"></p>
+                    <div class="progress"></div>
+                    <p class="p6"><input class="skills-name" type="text"></p>
+                    <div class="progress1"></div>
+
+                </div>
+
+                <div class="clearfix"></div>
+                <br><br>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <button id="preview-button">Preview</button>
+
+            <div class="preview-section">
+                <!-- preview content will be added here -->
+            </div>
+            <button id="download-cv">Download CV</button>
+
+        </div>
+
+        <!--=======================================-->
+        <!--========  CV Design ================-->
+        <!--=======================================-->
+
+
+        <div class="margin-bottom"></div>
+    </div>
+
+{%endblock%}
+</body>
+
+<script src="{%static 'js/Dashboard_Candidate/Add_resume/custom.js'%}"></script>
+
+</html>

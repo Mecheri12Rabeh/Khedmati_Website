@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{%static '/css/Dashboard_Employer/Manage_jobs/style.css'%}">
+    <script src="jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>Khedmati</title>
+</head>
+
+
+<body>
+    {%block content%}
+
+    <div class="nav_bar">{%include 'Dashboard_Employer/nav_bar/nav_bar.html'%}</div>
+
+
+    <div class="main">
+        <div class="top_bar">{%include 'Dashboard_Employer/nav_bar/top_bar.html'%}</div>
+        <div class="nav-title">
+            <h2> Manage Jobs</h2>
+            <div class="nav-title-link"><a href="{%url 'home'%}">Home</a><span> Manage Jobs </span></div>
+        </div>
+        <div class="nav-main">
+            <div class="nav-main-title">
+                <ion-icon name="briefcase"></ion-icon>
+                <h3>Manage Jobs</h3>
+            </div>
+            <hr>
+            <div class="table-search">
+                <label for="">Your listing are shown in the table bellow</label>
+                <a href="{%url 'add_job'%}">
+                <button>Add Job</button>
+                </a>
+            </div>
+            <div class="search-box">
+                <label for="">Search :</label>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <form method="get" action="{% url 'manage_jobs' %}">
+                        <input type="text" id="search-input" name="q" value="{{ query }}">
+                    </form>
+                </div>
+            </div>
+            
+            {% for message in messages %}
+            <p class="messages">{{ message }}</p> 
+            {% endfor %}
+            <script>
+                setTimeout(function() {
+                    document.querySelector('.messages').remove();
+                }, 5000); 
+            </script>
+            <div class="jobs-table">
+                <table>
+                    <thead>
+                            <tr>
+                                <td>Job Title</td>
+                                <td>Job Description</td>
+                                <td>Job Requirements</td>
+                                <td>Salary</td>
+                                <td>Category</td>
+                                <td>Region</td>
+                                <td>Actions</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for Job in jobs %}
+                                <form method="POST" action="{% url 'manage_jobs_edit' Job.idJob %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="job_id" value="{{ Job.id }}">
+                                    <td>
+                                        <span class="value">{{ Job.job_title }}</span>
+                                        <input type="text" name="job_title" value="{{ Job.job_title }}" class="edit-input hidden">
+                                    </td>
+                                    <td>
+                                        <span class="value">{{ Job.job_description }}</span>
+                                        <textarea name="job_description" class="edit-textarea hidden">{{ Job.job_description }}</textarea>
+                                    </td>
+                                    <td>
+                                        <span class="value">{{ Job.job_requirements }}</span>
+                                        <textarea name="job_requirements" class="edit-textarea hidden">{{ Job.job_requirements }}</textarea>
+                                    </td>
+                                    <td>
+                                        <span class="value">{{ Job.salary_range }}</span>
+                                        <input type="text" name="salary_range" value="{{ Job.salary_range }}" class="edit-input hidden">
+                                    </td>
+                                    <td>
+                                        <span class="value">{{ Job.idCategory.name }}</span>
+                                        <select name="idCategory" class="select-select-category hidden">
+                                            {% for Category in categories %}
+                                            <option value="{{ Category.idCategory }}" {% if Job.idCategory.idCategory == Category.idCategory %} selected {% endif %}>
+                                                {{ Category.name }}
+                                                </option>                                                
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <span class="value">{{ Job.idRegion.name }}</span>
+                                        <select name="idRegion" class="select-select-region hidden">
+                                            {% for Region in regions %}
+                                            <option value="{{ Region.idRegion }}" {% if Job.idRegion.idRegion == Region.idRegion %} selected {% endif %}>
+                                                {{ Region.name }}
+                                                </option>                                                
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <!--<button type="button" class="edit-btn">Edit</button>-->
+                                        <span class="edit-icon"></span>
+                                        <a href="{% url 'manage_jobs_delete' Job.idJob %}" style="text-decoration:none;">
+                                            <span class="delete-icon"></span>
+                                        </a>
+                                        <button type="submit" class="save-btn hidden">Save</button>
+                                        <button type="button" class="cancel-btn hidden">Cancel</button>
+                                    </td>
+                                </form>
+
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="7">No job applications found.</td>
+                            </tr>
+                        {% endfor %}
+                        
+                        </tbody>
+                    </table>
+                <!-- Ba3d nzidha f form bch ttbdl sql  -->
+            </div>
+
+        </div>
+
+        <div class="margin-bottom"></div>
+    </div>
+
+{%endblock%}
+
+</body>
+
+<script src="{%static '/js/Dashboard_Employer/Manage_jobs/custom.js'%}"></script>
+
+</html>

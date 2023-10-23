@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{%static 'css/Dashboard_Employer/Add_jobs/style.css'%}">
+    <script src="jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>Khedmati</title>
+</head>
+
+
+<body>
+    {%block content%}
+    <div class="nav_bar">{%include 'Dashboard_Employer/nav_bar/nav_bar.html'%}</div>
+
+
+    <div class="main">
+        <div class="top_bar">{%include 'Dashboard_Employer/nav_bar/top_bar.html'%}</div>
+        <div class="nav-title">
+            <h2> Add Jobs</h2>
+            <div class="nav-title-link"><a href="{%url 'home'%}">Home</a><span> Add Jobs </span></div>
+        </div>
+        <div class="nav-main">
+            <div class="nav-main-title">
+                <ion-icon name="briefcase"></ion-icon>
+                <h3> Add Jobs</h3>
+            </div>
+            <hr>
+            {% for message in messages %}
+            <p class="messages">{{ message }}</p> 
+            {% endfor %}
+            <script>
+                setTimeout(function() {
+                    document.querySelector('.messages').remove();
+                }, 5000); 
+                </script>
+
+            <div class="form-add-job">
+                <form method="post" action="">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label>Job Title</label>
+                        <input value="" type="text" placeholder="Enter your job title" name="job_title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Job Description</label>
+                        <textarea cols="30" rows="4" placeholder="Enter your job description" name="job_description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Job Requirement</label>
+                        <textarea cols="30" rows="4" placeholder="Enter your job requirement" name="job_requirements" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Salary </label>
+                        <input value="" type="number" placeholder="Enter your job salary without DA" name="salary_range" required>
+                    </div>
+                    <div class="form-group form-group-select">
+                        <label>Region</label>
+                        <select  name="idRegion" id="">
+                            <option value="">Select</option>
+                            {% for Region in regions %}
+                            <option value="{{ Region.idRegion }}">{{ Region.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group form-group-select">
+                        <label>Category</label>
+                        <select name="idCategory"  id="">
+                            <option value="">Select</option>
+                            {% for Category in categories %}
+                            <option value="{{ Category.idCategory }}">{{ Category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="btn-submit">
+                        <button type="submit" class="site-button">
+                            ADD JOB</button>
+                    </div>
+                </form>
+                    </div>
+                </div>
+                <div class="margin-bottom"></div>
+    </div>
+
+</body>
+{%endblock%}
+
+<script src="{%static 'js/Dashboard_Employer/Add_jobs/custom.js'%}"></script>
+
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{%static 'css/Dashboard_Candidate/Manage_profile/style.css'%}">
+    <script src="jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>Khedmati</title>
+</head>
+
+
+<body>
+    {%block content%}
+    <div class="nav_bar">{%include 'Dashboard_Candidate/nav_bar/nav_bar.html'%}</div>
+
+    <div class="main">
+        <div class="top_bar">{%include 'Dashboard_Candidate/nav_bar/top_bar.html'%}</div>
+        <div class="nav-title">
+            <h2> Manage Profile</h2>
+            <div class="nav-title-link"><a href="{%url 'home'%}">Home</a><span> Manage Profile </span></div>
+        </div>
+        <div class="Company-logo">
+            <div class="Company-logo-title">
+                <ion-icon name="person"></ion-icon>
+                <h3>Upload Profile Image and Resume</h3>
+            </div>
+            <hr>
+            <div class="logo">
+                <div class="form-group-resume">
+                    <i class="fa-solid fa-camera"></i>
+                    <label>Upload Profile Pic</label>
+                </div>
+                <div class="add-logo">
+                    <img src="{{ candidate.image }}" alt="">
+                </div>
+                <div class="upload-logo">
+                    <!-- <input id="file-upload" type="file" value="" accept=".png, .jpg, .jpeg">
+                    <button id="file-upload-button">Upload Image</button>
+                -->
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input name="image"type="file" >
+                <div class="form-group-resume">
+                    <i class="fas fa-file"></i>
+                    <label>Upload Resume</label>
+                    <input type="file" name="resume" id="resume" >
+                </div>
+                <button type="submit">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="nav-main">
+            <div class="nav-main-title">
+                <ion-icon name="document"></ion-icon>
+                <h3> Basic Information</h3>
+            </div>
+            <hr>
+            {% for message in messages %}
+            <p class="messages">{{ message }}</p> 
+            {% endfor %}
+            <script>
+                setTimeout(function() {
+                    document.querySelector('.messages').remove();
+                }, 5000); 
+            </script>
+            <div class="form-basic-information">
+                <form method="post" action="{% url 'manage_profile_candidate_edit' candidate.idCandidate %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <label>First name</label>
+                        <input value="{{ candidate.first_name }}" name="first_name" type="text" placeholder="Enter your new first name">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-users"></i>
+                        <label>Last name</label>
+                        <input value="{{ candidate.last_name }}" name="last_name" type="text" placeholder="Enter your new last name">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <label>Email</label>
+                        <input value="{{ candidate.email }}" name="email" type="text" placeholder="Enter your new email">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-mobile-alt"></i>
+                        <label>Phone Number</label>
+                        <input value="{{ candidate.phone }}" name="phone" type="text" placeholder="Enter your new phone number">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <label>Address</label>
+                        <input value="{{ candidate.address }}" name="address" type="text" placeholder="Enter your new Adress">
+                    </div>
+                    <div class="btn-submit">
+                        <button type="submit" class="site-button">
+                            Save Informations</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="margin-bottom"></div>
+    </div>
+{%endblock%}
+</body>
+
+<script src="{%static 'js/Dashboard_Candidate/Manage_profile/custom.js'%}"></script>
+
+</html>

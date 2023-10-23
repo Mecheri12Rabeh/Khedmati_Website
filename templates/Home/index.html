@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{% static 'css/Home/style.css' %}">
+    <script src="jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>Khedmati</title>
+</head>
+
+
+<body>
+    {% block content %}
+    <header class="header">
+            {% include 'Header_Footer/header.html' %}
+    </header>
+
+    <div class="header-background">
+        <div class="background">
+            <img src="{%static 'img/Home/Background_home.png'%}" alt="">
+        </div>
+
+        <div class="header-page">
+
+            <div class="header-text">
+                <div class="text-animation1">
+                    <span class="text1-first-text">Discover your dream</span>
+                    <span class="text1-third-text">job</span>
+                    <span class="text1-first-text">online with ease</span>
+                </div>
+                <div class="text-animation2">
+                    <span class="text2-second-text">Find</span>
+                    <span class="text2-first-text">the perfect</span>
+                    <span class="text2-third-text">job</span>
+                    <span class="text2-first-text"> match for your skills and lifestyle</span>
+                    <span class="text2-third-text">skills</span>
+                    <span class="text2-first-text">and</span>
+                    <span class="text2-second-text">lifestyle</span>
+                </div>
+                <div class="text-click-to-search">
+                    <span>Type your keyword, then click search to find your perfect job.
+                    </span>
+                </div>
+            </div>
+
+            <div class="slider-images">
+                <div class="icons-elements">
+                    <img src="{%static 'img/Home/icon3.png'%}" class="icons-elements1">
+                    <img src="{%static 'img/Home/icon2.png'%}"  class="icons-elements2">
+                </div>
+                <div class="header-slider">
+                    <img src="{%static 'img/Home/Slide2.png'%}">
+                    <img src="{%static 'img/Home/Slide5.png'%}">
+                </div>
+                <span class="animblob"></span>
+            </div>
+
+        </div>
+
+        <form method="get" action="{% url 'list_job_search' %}">
+        <div class="search-box">
+            <div class="search-box-table">
+                <label for="">JOB</label>
+                <div class="search-box-table-fileds">
+                    <i class=" uil uil-search"></i>
+                    <input type="text" name="keyword" placeholder="Search"  value="{{ request.GET.keyword }}">
+                </div>
+            </div>
+            <div class="search-box-table">
+                <label for="">CATEGORY</label>
+                <select name="category">
+                    <option value="">Select Category</option>
+                    {% for category in categories %}
+                    <option value="{{ category.name }}" {% if request.GET.category == category.name %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="search-box-table">
+                <label for="">REGION</label>
+                <select name="region">
+                    <option value="">Select Region</option>
+                    {% for region in regions %}
+                    <option value="{{ region.city }}" {% if request.GET.region == region.city %}selected{% endif %}>{{ region.city }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="search-box-table">
+                <a href="">
+                    <button>Find Job</button>
+                </a>
+            </div>
+        </div>
+    </form>
+
+    </div>
+
+
+    <div class="text-our-services">
+        <span class="part-blue">Our</span>
+        <span>Services</span>
+    </div>
+
+    <div class="our-services-table">
+        <div class="first-table">
+            <div class="our-services-icon">
+                <img src="{% static 'img/Home/icon_1.png' %}">
+            </div>
+            <div class="our-services-title">
+                Online Application
+            </div>
+            <div class="our-services-detailed">
+                Our online site accessed from any location with an internet connection
+            </div>
+        </div>
+        <div class="second-table">
+            <div class="our-services-icon">
+                <img src="{% static 'img/Home/icon_2.png' %}">
+            </div>
+            <div class="our-services-title">
+                Search by Region
+            </div>
+            <div class="our-services-detailed">
+                Our online allows you to easily find and filter results by region
+            </div>
+        </div>
+        <div class="third-table">
+            <div class="our-services-icon">
+                <img src="{% static 'img/Home/icon_3.png' %}">
+            </div>
+            <div class="our-services-title">
+                Fast Service
+            </div>
+            <div class="our-services-detailed">
+                Get fast results with our efficient online website
+            </div>
+        </div>
+    </div>
+
+    <div class="text-category">
+        <h6>Jobs by Categories</h6>
+        <h1>Choose Your Desire Category</h1>
+    </div>
+    <div class='scroll-bar'>
+        <div class='main-scroll'>
+            <button class="icon leftClick" onclick="slideLeft()">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <div class="cover">
+                <div class='scroll-images' id='slider-category'>
+                    {% for category in categories %}
+                    <div class='child'>
+                        <div class="category-cards">
+                            <div class='categoty-icon'>
+                                <img src="{{ category.image_url}}" alt="image" />
+                            </div>
+                            <div class='categoty-text'>
+                                <h3>{{ category.name }}</h3>
+                                <a href="{% url 'list_job_search' %}?category={{ category.name }}">                                    
+                                    <button>{{ category.job_count}} Jobs</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <button class='icon' id='rightClick' onclick="slideRight()">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+    </div>
+        <a href="{%url 'jobs_list'%}">
+            <button class="all-jobs">{{ category.job_count}} All Jobs</button>
+        </a>
+    </div>
+
+
+    <div class="working-process">Working Process</div>
+    <div class="how-it-works">How It Works</div>
+
+    <div class="how-it-work-table">
+        <div class="first-table">
+            <div class="how-it-work-icon">
+                <img src="{% static 'img/Home/icon_4.png' %}">
+            </div>
+            <div class="how-it-work-number">
+                01
+            </div>
+            <div class="how-it-work-title">
+                Create an Account
+            </div>
+            <div class="how-it-work-detailed">
+                You need to create an account to find the best and preferred job that fits you
+            </div>
+        </div>
+        <div class="second-table">
+            <div class="how-it-work-icon">
+                <img src="{% static 'img/Home/icon_5.png' %}">
+            </div>
+            <div class="how-it-work-number">
+                02
+            </div>
+            <div class="how-it-work-title">
+                Apply for job
+            </div>
+            <div class="how-it-work-detailed">
+                Do a search about jobs than apply for your dream job quickly and easily
+            </div>
+        </div>
+        <div class="third-table">
+            <div class="how-it-work-icon">
+                <img src="{% static 'img/Home/icon_6.png' %}">
+            </div>
+            <div class="how-it-work-number">
+                03
+            </div>
+            <div class="how-it-work-title">
+                Upload your Verification
+            </div>
+            <div class="how-it-work-detailed">
+                Boost hiring chances by uploading verification documents such as resume or cover letter
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-news">
+        <h6> News</h6>
+        <h1>Check Out Our Latest News</h1>
+    </div>
+    <div class='scroll-bar-news'>
+        <div class='main-scroll-news'>
+            <button class="icon leftClick" id="slider-news-left-click" onclick="slideLeftNews()">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <div class="cover-news">
+                <div class='scroll-images-news' id='slider-news'>
+                    {%for News in news%}
+                    <div class="child-news">
+                        <div class="news">
+                            <article class="card-news">
+                                <div class="thumb-news">
+                                    <img src="{{News.image_url}}" alt="">
+                                </div>
+                                <div class="infos-news">
+                                    <h2 class="title-news">{{News.title}}</h2>
+                                    <hr>
+                                    <p class="txt-news">{{News.details}}</p>
+                                    <a href="{% url 'news_detailed' News.idNews %}">
+                                        <button class="btn-news-detail">News Detail</button>
+                                    </a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+            <button class='icon' id='slider-news-right-click' onclick="slideRightNews()">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="footer">
+        {% include 'Header_Footer/footer.html' %}
+    </div>
+
+    {% endblock %}
+</body>
+
+<script src="{% static 'js/Home/custom.js' %}"></script>
+
+</html>
